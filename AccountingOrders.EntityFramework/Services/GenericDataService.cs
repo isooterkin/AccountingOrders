@@ -33,11 +33,28 @@ namespace AccountingOrders.EntityFramework.Services
             return true;
         }
 
+        public async Task<bool> Deletes(int[] ids)
+        {
+            using AccountingOrdersDbContext context = _contextFactory.CreateDbContext();
+            IEnumerable<T> entitys = await context.Set<T>().Where(e => ids.Contains(e.Id)).ToListAsync();
+            if (!entitys.Any()) return false;
+            context.Set<T>().RemoveRange(entitys);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<T?> Get(int id)
         {
             using AccountingOrdersDbContext context = _contextFactory.CreateDbContext();
             T? entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
             return entity;
+        }
+
+        public async Task<IEnumerable<T>> Gets(int[] ids)
+        {
+            using AccountingOrdersDbContext context = _contextFactory.CreateDbContext();
+            IEnumerable<T> entitys = await context.Set<T>().Where(e => ids.Contains(e.Id)).ToListAsync();
+            return entitys;
         }
 
         public async Task<IEnumerable<T>> GetAll()

@@ -25,11 +25,23 @@ namespace AccountingOrders.EntityFramework.Services
             return await _genericDataService.Delete(id);
         }
 
+        public async Task<bool> Deletes(int[] ids)
+        {
+            return await _genericDataService.Deletes(ids);
+        }
+
         public async Task<UserModel?> Get(int id)
         {
             using AccountingOrdersDbContext context = _contextFactory.CreateDbContext();
             UserModel? entity = await context.Set<UserModel>().Include(d => d.DepartmentModel).FirstOrDefaultAsync(e => e.Id == id);
             return entity;
+        }
+
+        public async Task<IEnumerable<UserModel>> Gets(int[] ids)
+        {
+            using AccountingOrdersDbContext context = _contextFactory.CreateDbContext();
+            IEnumerable<UserModel> entitys = await context.Set<UserModel>().Where(e => ids.Contains(e.Id)).Include(u => u.DepartmentModel).ToListAsync();
+            return entitys;
         }
 
         public async Task<IEnumerable<UserModel>> GetAll()

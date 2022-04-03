@@ -65,12 +65,10 @@ namespace AccountingOrders.WPF.ViewsModels
 
         public async Task DeleteDepartmentAsync()
         {
-            // Реализовать DeleteRange
             List<DepartmentModel> selectedItems = GetSelectedItems();
             if (selectedItems.Count > 0)
             {
-                for (int i = 0; i < selectedItems.Count; i++)
-                    await _departmentService.Delete(selectedItems[i].Id);
+                await _departmentService.Deletes(selectedItems.Select(e => e.Id).ToArray());
                 _allDepartments.Clear();
                 await GetDataAsync();
             }

@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="AccountingOrders.WPF.Controls.NavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewsmodels="clr-namespace:AccountingOrders.WPF.ViewsModels"
+             xmlns:converters="clr-namespace:AccountingOrders.WPF.Converters"
+             xmlns:navigator="clr-namespace:AccountingOrders.WPF.State.Navigators" d:DataContext="{d:DesignInstance Type=viewsmodels:MainViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="200">
+    <Border BorderBrush="#2e3544" BorderThickness="0,0,1,0">
+        <Grid>
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource MenuButtonStyle}" TargetType="RadioButton" />
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+        
+            <Grid Grid.Row="1"
+                  Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <RadioButton Grid.Row="0"
+                             Height="50"
+                             FontSize="16"
+                             Content="Сотрудники"
+                             Command="{Binding UpdateCurrentViewModelCommand}"
+                             CommandParameter="{x:Static navigator:ViewType.User}"
+                             IsChecked="{Binding CurrentViewModel, Converter={converters:EqualValueToParameterConverter}, Mode=OneWay, ConverterParameter={x:Type viewsmodels:UserViewModel}}"/>
+                <RadioButton Grid.Row="1"
+                             Height="50"
+                             FontSize="16"
+                             Content="Подразделения"
+                             Command="{Binding UpdateCurrentViewModelCommand}"
+                             CommandParameter="{x:Static navigator:ViewType.Department}"
+                             IsChecked="{Binding CurrentViewModel, Converter={converters:EqualValueToParameterConverter}, Mode=OneWay, ConverterParameter={x:Type viewsmodels:DepartmentViewModel}}"/>
+                <RadioButton Grid.Row="2"
+                             Height="50"
+                             FontSize="16"
+                             Content="Заказы"
+                             Command="{Binding UpdateCurrentViewModelCommand}"
+                             CommandParameter="{x:Static navigator:ViewType.Order}"
+                             IsChecked="{Binding CurrentViewModel, Converter={converters:EqualValueToParameterConverter}, Mode=OneWay, ConverterParameter={x:Type viewsmodels:OrderViewModel}}"/>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

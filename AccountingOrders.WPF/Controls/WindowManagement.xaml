@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="AccountingOrders.WPF.Controls.WindowManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:AccountingOrders.WPF.Controls"
+             mc:Ignorable="d"
+             d:DesignWidth="1080" 
+             MaxHeight="40">
+    <Border BorderThickness="0,0,0,1"
+            BorderBrush="#6fffffff"
+            MouseLeftButtonDown="LeftButtonDown"
+            Background="#00f6f6f6">
+        <Grid HorizontalAlignment="Stretch"
+              Margin="20,5,20,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="{Binding Title}"
+                           Foreground="White"
+                           FontSize="20"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            <Button Grid.Column="1" Width="20"
+                        Margin="2"
+                        Height="20"
+                        BorderBrush="#313c53"
+                        Background="{StaticResource BrushButton}"
+                        Click="Minimized">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Grid.Column="2" Width="20" 
+                        Height="20"
+                        Margin="2"
+                        BorderBrush="#313c53"
+                        Background="{StaticResource BrushButtonAdd}"
+                        Click="Maximized">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Grid.Column="3" Width="20" 
+                        Margin="2,2,0,2"
+                        Height="20"
+                        BorderBrush="#313c53"
+                        Background="{StaticResource BrushButtonDelete}"
+                        Click="Close">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>

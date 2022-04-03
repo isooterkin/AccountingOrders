@@ -1,0 +1,55 @@
+﻿<Window x:Class="AccountingOrders.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewsmodels="clr-namespace:AccountingOrders.WPF.ViewsModels" d:DataContext="{d:DesignInstance Type=viewsmodels:MainViewModel}"
+        xmlns:controls="clr-namespace:AccountingOrders.WPF.Controls"
+        mc:Ignorable="d"
+        Title="Учет заказов" Height="720" Width="1080"
+        Style="{StaticResource WindowStyle}">
+    <Border Style="{StaticResource WindowBorderStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Работа с окном -->
+            <Grid Grid.Row="0"
+                  Margin="0,0,0,0">
+                <controls:WindowManagement Title=""/>
+            </Grid>
+            <!--  -->
+
+            <!-- Основа -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Навигатор -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="25"
+                               Foreground="White"
+                               Text="Учет заказов"/>
+                    <controls:NavigationBar Grid.Row="1"/>
+                </Grid>
+
+                <!-- Контент -->
+                <Grid Grid.Column="1">
+                    <ContentControl Grid.Row="1"
+                                Content="{Binding CurrentViewModel}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

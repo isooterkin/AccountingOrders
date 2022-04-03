@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Цвета -->
+    <Color x:Key="ColorPrimary1">#1a2232</Color>
+    <Color x:Key="ColorPrimary2">#f2f0fd</Color>
+    <Color x:Key="ColorPrimary3">#2e394e</Color>
+    <Color x:Key="ColorTextOnHover">#ffffff</Color>
+    <Color x:Key="ColorTextDefoult">#9ea4aa</Color>
+    <Color x:Key="ColorTable">#202a40</Color>
+    <Color x:Key="ColorButtonAdd">#fcc32f</Color>
+    <Color x:Key="ColorButtonDelete">#fe625b</Color>
+    <Color x:Key="ColorButton">#d1d1d1</Color>
+
+    <!-- Кисти -->
+    <SolidColorBrush x:Key="BrushPrimary1" Color="{StaticResource ColorPrimary1}"/>
+    <SolidColorBrush x:Key="BrushPrimary2" Color="{StaticResource ColorPrimary2}"/>
+    <SolidColorBrush x:Key="BrushPrimary3" Color="{StaticResource ColorPrimary3}"/>
+    <SolidColorBrush x:Key="BrushTextOnHover" Color="{StaticResource ColorTextOnHover}"/>
+    <SolidColorBrush x:Key="BrushTextDefoult" Color="{StaticResource ColorTextDefoult}"/>
+    <SolidColorBrush x:Key="BrushTable" Color="{StaticResource ColorTable}"/>
+    <SolidColorBrush x:Key="BrushButtonAdd" Color="{StaticResource ColorButtonAdd}"/>
+    <SolidColorBrush x:Key="BrushButtonDelete" Color="{StaticResource ColorButtonDelete}"/>
+    <SolidColorBrush x:Key="BrushButton" Color="{StaticResource ColorButton}"/>
+
+</ResourceDictionary>

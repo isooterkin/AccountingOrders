@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="AccountingOrders.WPF.Views.OrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewsmodels="clr-namespace:AccountingOrders.WPF.ViewsModels" d:DataContext="{d:DesignInstance Type=viewsmodels:OrderViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Расположение кнопок -->
+        <Grid Grid.Row="0"
+              Margin="40,20,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                Foreground="{StaticResource BrushTextOnHover}"
+                   VerticalAlignment="Center"
+                   Text="Информация о заказах"
+                   FontSize="20"/>
+            <Grid Grid.Column="1">
+                <Button HorizontalAlignment="Right"
+                        Content="Просмотреть"
+                        Width="100"
+                        CommandParameter=""
+                        Command="{Binding ViewCommand}"
+                        Style="{StaticResource ButtonStyle}"
+                        Foreground="{StaticResource BrushButtonAdd}">
+                </Button>
+            </Grid>
+            <Grid Grid.Column="2"
+                  Margin="20,0,0,0">
+                <Button HorizontalAlignment="Right"
+                        Content="Редактировать"
+                        Width="100"
+                        CommandParameter=""
+                        Command="{Binding EditCommand}"
+                        Style="{StaticResource ButtonStyle}"
+                        Foreground="{StaticResource BrushButtonAdd}">
+                </Button>
+            </Grid>
+            <Grid Grid.Column="3"
+                  Margin="20,0,0,0">
+                <Button HorizontalAlignment="Right"
+                        Content="Добавить"
+                        Width="100"
+                        CommandParameter=""
+                        Command="{Binding AddCommand}"
+                        Style="{StaticResource ButtonStyle}">
+                </Button>
+            </Grid>
+        </Grid>
+        <!-- -->
+
+        <Border CornerRadius="20,0,20,20" 
+                Grid.Row="1"
+                Background="{StaticResource BrushTable}"
+                Margin="20,0,20,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0"
+                        Margin="20,5,20,2"
+                        BorderBrush="White"
+                        BorderThickness="0,0,0,2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" FontSize="16" Text="Номер" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                        <TextBlock Grid.Column="1" FontSize="16" Text="Название" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                        <TextBlock Grid.Column="2" FontSize="16" Text="Сотрудник" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                    </Grid>
+                </Border>
+                <ListView Grid.Row="1"
+                          ItemsSource="{Binding AllOrders}"
+                          Margin="20,0,20,20"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          HorizontalContentAlignment="Stretch"
+                          ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="2"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0"
+                                      Margin="0,10,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <TextBlock FontSize="12" Text="{Binding Path=Number}" HorizontalAlignment="Left" Foreground="White"/>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <TextBlock FontSize="12" Text="{Binding Path=Name}" HorizontalAlignment="Left" Foreground="White"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <TextBlock FontSize="12" Text="{Binding Path=UserModel.Name}" HorizontalAlignment="Left" Foreground="White"/>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1"
+                                      Background="#2a3449"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

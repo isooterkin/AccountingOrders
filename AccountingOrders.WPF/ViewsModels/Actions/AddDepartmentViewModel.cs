@@ -105,10 +105,9 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
         {
             if (!HasErrors)
             {
-                DepartmentModel departmentModel;
-
-                if (UserModel == null) departmentModel = await _departmentService.Create(new DepartmentModel { Name = Name });
-                else departmentModel = await _departmentService.Create(new DepartmentModel { Name = Name, UserId = UserModel.Id });
+                DepartmentModel departmentModel = UserModel == null ? 
+                    await _departmentService.Create(new DepartmentModel { Name = Name }) : 
+                    await _departmentService.Create(new DepartmentModel { Name = Name, UserId = UserModel.Id });
  
                 AllDepartments?.Add(departmentModel);
                 CloseWindow();

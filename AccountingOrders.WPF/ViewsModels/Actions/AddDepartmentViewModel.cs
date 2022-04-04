@@ -29,7 +29,7 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
 
             #region Получение данных с БД
 
-            GetData();
+            //GetData();
 
             #endregion
 

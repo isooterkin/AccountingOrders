@@ -13,7 +13,6 @@ namespace AccountingOrders.Domain.Models
         public int Number { get; set; }
 
         [Required(ErrorMessage = "Вы должны ввести название")]
-        [RegularExpression(@"^[а-яА-Я]+$", ErrorMessage = "Название должно содержать только буквы")]
         [StringLength(int.MaxValue, MinimumLength = 1, ErrorMessage = "Название не должно быть коротким")]
         public string Name { get; set; }
 

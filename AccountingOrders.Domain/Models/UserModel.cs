@@ -10,16 +10,16 @@ namespace AccountingOrders.Domain.Models
     public class UserModel: ObjectWithId
     {
         [Required(ErrorMessage = "Вы должны ввести фамилию")]
-        [RegularExpression(@"^[а-яА-Я]+$", ErrorMessage = "Фамилия должна содержать только буквы")]
+        [RegularExpression(@"^[А-Я][а-я]+$", ErrorMessage = "Фамилия некорректна")]
         [StringLength(int.MaxValue, MinimumLength = 1, ErrorMessage = "Фамилия не должна быть короткой")]
         public string Surname { get; set; }
 
         [Required(ErrorMessage = "Вы должны ввести имя")]
-        [RegularExpression(@"^[а-яА-Я]+$", ErrorMessage = "Имя должно содержать только буквы")]
+        [RegularExpression(@"^[А-Я][а-я]+$", ErrorMessage = "Имя некорректно")]
         [StringLength(int.MaxValue, MinimumLength = 1, ErrorMessage = "Имя не должно быть коротким")]
         public string Name { get; set; }
 
-        [RegularExpression(@"^[а-яА-Я]+$", ErrorMessage = "Отчество должно содержать только буквы")]
+        [RegularExpression(@"^[А-Я][а-я]+$", ErrorMessage = "Отчество некорректно")]
         [StringLength(int.MaxValue, MinimumLength = 1, ErrorMessage = "Отчество не должно быть коротким")]
         public string? Patronymic { get; set; }
 

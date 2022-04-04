@@ -67,7 +67,7 @@ namespace AccountingOrders.EntityFramework.Services
         public async Task<T?> Update(int id, T entity)
         {
             using AccountingOrdersDbContext context = _contextFactory.CreateDbContext();
-            if (Get(id).Result == null) return null;
+            //if (Get(id).Result == null) return null;
             entity.Id = id;
             context.Set<T>().Update(entity);
             await context.SaveChangesAsync();

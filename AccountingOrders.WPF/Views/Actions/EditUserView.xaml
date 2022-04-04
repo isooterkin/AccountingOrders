@@ -3,10 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AccountingOrders.WPF.Views.Actions" xmlns:controls="clr-namespace:AccountingOrders.WPF.Controls"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:AccountingOrders.Domain.Tools;assembly=AccountingOrders.Domain"
+        xmlns:controls="clr-namespace:AccountingOrders.WPF.Controls" xmlns:actions="clr-namespace:AccountingOrders.WPF.ViewsModels.Actions" d:DataContext="{d:DesignInstance Type=actions:EditUserViewModel}"
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
         Title="Редактировать сотрудника" Height="500" Width="300">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" 
+                            MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:GenderType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
     <Border Style="{StaticResource WindowBorderStyle}">
         <Grid>
             <Grid.RowDefinitions>
@@ -23,8 +34,163 @@
 
             <!-- Контент -->
             <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
+                <Grid Grid.Row="0"
+                      Margin="20,0,20,0"
+                      VerticalAlignment="Center">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" 
+                               Text="Фамилия"
+                               Foreground="White"
+                               Margin="0,5"/>
+                    <TextBox Grid.Row="1"
+                             Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                             Margin="0,5">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder/>
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+                    <TextBlock Grid.Row="2" 
+                               Text="Имя"
+                               Foreground="White"
+                               Margin="0,5"/>
+                    <TextBox Grid.Row="3"
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                             Margin="0,5">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder/>
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+                    <TextBlock Grid.Row="4" 
+                               Text="Отчество"
+                               Foreground="White"
+                               Margin="0,5"/>
+                    <TextBox Grid.Row="5"
+                             Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+                             Margin="0,5">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder/>
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+                    <TextBlock Grid.Row="6"
+                               Text="Дата рождения"
+                               Foreground="White"
+                               Margin="0,5"/>
+                    <DatePicker Grid.Row="7"
+                                SelectedDate="{Binding DateOfBirth}"
+                                DisplayDateEnd="{Binding DateOfBirth, TargetNullValue={x:Static sys:DateTime.Now}}">
+                    </DatePicker>
+                    <TextBlock Grid.Row="8"
+                               Text="Пол"
+                               Foreground="White"
+                               Margin="0,5"/>
+                    <ComboBox Grid.Row="9"
+                              ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                              SelectedItem="{Binding Gender}"
+                              Margin="0,5"
+                              IsSynchronizedWithCurrentItem="True"
+                              SelectedIndex="0">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder/>
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </ComboBox>
+                    <TextBlock Grid.Row="10"
+                               Text="Подразделение"
+                               Foreground="White"
+                               Margin="0,5"/>
+                    <ComboBox Grid.Row="11"
+                              ItemsSource="{Binding AllDepartments}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding DepartmentModel}"
+                              Margin="0,5">
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder/>
+                                    <ItemsControl ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </ComboBox>
+                </Grid>
+                <Button Grid.Row="1"
+                        Content="Редактировать"
+                        Style="{StaticResource ButtonStyle}"
+                        Width="auto"
+                        Height="50"
+                        Margin="20"
+                        Command="{Binding AddCommand}"
+                        CommandParameter=""/>
             </Grid>
+            <!-- Контент -->
         </Grid>
     </Border>
 </Window>

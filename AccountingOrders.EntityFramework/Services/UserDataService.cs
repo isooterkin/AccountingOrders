@@ -1,6 +1,7 @@
 ﻿using AccountingOrders.Domain.Models;
 using AccountingOrders.Domain.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AccountingOrders.EntityFramework.Services
 {
@@ -54,6 +55,17 @@ namespace AccountingOrders.EntityFramework.Services
         public async Task<UserModel?> Update(int id, UserModel entity)
         {
             return await _genericDataService.Update(id, entity);
+        }
+
+        public async Task<IEnumerable<UserModel>> UpdateDepartmentIdToNull(int[] idsDepartment)
+        {
+            using AccountingOrdersDbContext context = _contextFactory.CreateDbContext();
+            #pragma warning disable CS8629 // Тип значения, допускающего NULL, может быть NULL.
+            List<UserModel> entity = await context.Set<UserModel>().Where(e => idsDepartment.Contains((int)e.DepartmentId)).ToListAsync();
+            #pragma warning restore CS8629 // Тип значения, допускающего NULL, может быть NULL.
+            entity.ForEach(a => a.DepartmentId = null);
+            await context.SaveChangesAsync();
+            return entity;
         }
     }
 }

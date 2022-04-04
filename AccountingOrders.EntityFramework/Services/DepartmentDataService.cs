@@ -55,5 +55,16 @@ namespace AccountingOrders.EntityFramework.Services
         {
             return await _genericDataService.Update(id, entity);
         }
+
+        public async Task<IEnumerable<DepartmentModel>> UpdateUserIdToNull(int[] idsUser)
+        {
+            using AccountingOrdersDbContext context = _contextFactory.CreateDbContext();
+            #pragma warning disable CS8629 // Тип значения, допускающего NULL, может быть NULL.
+            List<DepartmentModel> entity = await context.Set<DepartmentModel>().Where(e => idsUser.Contains((int)e.UserId)).ToListAsync();
+            #pragma warning restore CS8629 // Тип значения, допускающего NULL, может быть NULL.
+            entity.ForEach(a => a.UserId = null);
+            await context.SaveChangesAsync();
+            return entity;
+        }
     }
 }

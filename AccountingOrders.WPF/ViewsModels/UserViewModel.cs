@@ -14,7 +14,7 @@ namespace AccountingOrders.WPF.ViewsModels
     {
         #region Конструктор
 
-        public UserViewModel(IUserService userService, IAccountingOrdersViewFactory viewFactory)
+        public UserViewModel(IUserService userService, IDepartmentService departmentService, IAccountingOrdersViewFactory viewFactory)
         {
             #region Получение завода для создания окон
 
@@ -25,6 +25,7 @@ namespace AccountingOrders.WPF.ViewsModels
             #region Получение сервисов для взаимодействия с БД
 
             _userService = userService;
+            _departmentService = departmentService;
 
             #endregion
 
@@ -56,6 +57,7 @@ namespace AccountingOrders.WPF.ViewsModels
 
         #region Сервисы
         private readonly IUserService _userService;
+        private readonly IDepartmentService _departmentService;
         #endregion
 
         #region Методы
@@ -110,7 +112,9 @@ namespace AccountingOrders.WPF.ViewsModels
             List<UserModel> selectedItems = GetSelectedItems();
             if (selectedItems.Count > 0)
             {
-                await _userService.Deletes(selectedItems.Select(e => e.Id).ToArray());
+                int[] selectedItemsArray = selectedItems.Select(e => e.Id).ToArray();
+                await _departmentService.UpdateUserIdToNull(selectedItemsArray);
+                await _userService.Deletes(selectedItemsArray);
                 _allUsers.Clear();
                 await GetDataAsync();
             }

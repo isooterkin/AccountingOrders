@@ -20,6 +20,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                 Foreground="{StaticResource BrushTextOnHover}"
@@ -27,6 +28,17 @@
                    Text="Информация о сотрудниках"
                    FontSize="20"/>
             <Grid Grid.Column="1">
+                <Button HorizontalAlignment="Right"
+                        Content="Удалить"
+                        Width="100"
+                        CommandParameter=""
+                        Command="{Binding DeleteCommand}"
+                        Style="{StaticResource ButtonStyle}"
+                        Foreground="{StaticResource BrushButtonAdd}">
+                </Button>
+            </Grid>
+            <Grid Grid.Column="2"
+                  Margin="10,0,0,0">
                 <Button HorizontalAlignment="Right"
                         Content="Просмотреть"
                         Width="100"
@@ -36,8 +48,8 @@
                         Foreground="{StaticResource BrushButtonAdd}">
                 </Button>
             </Grid>
-            <Grid Grid.Column="2"
-                  Margin="20,0,0,0">
+            <Grid Grid.Column="3"
+                  Margin="10,0,0,0">
                 <Button HorizontalAlignment="Right"
                         Content="Редактировать"
                         Width="100"
@@ -47,8 +59,8 @@
                         Foreground="{StaticResource BrushButtonAdd}">
                 </Button>
             </Grid>
-            <Grid Grid.Column="3"
-                  Margin="20,0,0,0">
+            <Grid Grid.Column="4"
+                  Margin="10,0,0,0">
                 <Button HorizontalAlignment="Right"
                         Content="Добавить"
                         Width="100"
@@ -86,7 +98,7 @@
                         <TextBlock Grid.Column="0" FontSize="16" Text="Фамилия" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                         <TextBlock Grid.Column="1" FontSize="16" Text="Имя" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                         <TextBlock Grid.Column="2" FontSize="16" Text="Отчество" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                        <TextBlock Grid.Column="3" FontSize="16" Text="Дата рождения" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                        <TextBlock Grid.Column="3" FontSize="16" Text="Дата рожд." HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                         <TextBlock Grid.Column="4" FontSize="16" Text="Пол" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                         <TextBlock Grid.Column="5" FontSize="16" Text="Подразделение" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                     </Grid>

@@ -1,64 +1,60 @@
 ﻿using AccountingOrders.Domain.Models;
-using AccountingOrders.WPF.State.Navigators;
+using AccountingOrders.Domain.Services;
+using AccountingOrders.EntityFramework;
+using AccountingOrders.EntityFramework.Services;
 using AccountingOrders.WPF.Tools;
 using AccountingOrders.WPF.Views.Actions;
 using AccountingOrders.WPF.ViewsModels.Actions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace AccountingOrders.WPF.ViewsModels.Factories
 {
-    public class AccountingOrdersViewFactory : IAccountingOrdersViewFactory
+    public class AccountingOrdersViewFactory: IAccountingOrdersViewFactory
     {
-        private readonly IAccountingOrdersViewModelFactory _viewModelFactory;
+        private readonly AccountingOrdersDbContextFactory _accountingOrdersDbContextFactory;
 
-        public AccountingOrdersViewFactory(IAccountingOrdersViewModelFactory viewModelFactory)
+        public AccountingOrdersViewFactory(AccountingOrdersDbContextFactory accountingOrdersDbContextFactory)
         {
-            _viewModelFactory = viewModelFactory;
+            _accountingOrdersDbContextFactory = accountingOrdersDbContextFactory;
         }
 
-
-        public Window CreateView<T>(ViewType viewType, T? tableList = null) where T : class
+        public Window CreateViewAdd<Observable>(ViewWindowType viewWindowType, Observable observableCollectionImproved) where Observable : class
         {
-            switch (viewType)
+            IUserService userService = new UserDataService(_accountingOrdersDbContextFactory);
+            IOrderService orderService = new OrderDataService(_accountingOrdersDbContextFactory);
+            IDepartmentService departmentService = new DepartmentDataService(_accountingOrdersDbContextFactory);
+
+            switch (viewWindowType)
             {
-                case ViewType.AddDepartment:
-                    AddDepartmentViewModel addDepartmentViewModel = (AddDepartmentViewModel)_viewModelFactory.CreateViewModel(viewType);
-                    addDepartmentViewModel.AllDepartments = tableList as ObservableCollectionImproved<DepartmentModel>;
-                    return new AddDepartmentView(addDepartmentViewModel);
-                case ViewType.AddOrder:
-                    AddOrderViewModel addOrderViewModel = (AddOrderViewModel)_viewModelFactory.CreateViewModel(viewType);
-                    addOrderViewModel.AllOrders = tableList as ObservableCollectionImproved<OrderModel>;
-                    return new AddOrderView(addOrderViewModel);
-                case ViewType.AddUser:
-                    AddUserViewModel addUserViewModel = (AddUserViewModel)_viewModelFactory.CreateViewModel(viewType);
-                    addUserViewModel.AllUsers = tableList as ObservableCollectionImproved<UserModel>;
-                    return new AddUserView(addUserViewModel);
-                case ViewType.EditDepartment:
-                    EditDepartmentViewModel viewModel = (EditDepartmentViewModel)_viewModelFactory.CreateViewModel(viewType);
-                    viewModel.AllDepartments = tableList as ObservableCollectionImproved<DepartmentModel>;
-                    return new AddDepartmentView(viewModel);
-                case ViewType.EditOrder:
-                    EditOrderViewModel editOrderViewModel = (EditOrderViewModel)_viewModelFactory.CreateViewModel(viewType);
-                    editOrderViewModel.AllOrders = tableList as ObservableCollectionImproved<OrderModel>;
-                    return new AddOrderView(editOrderViewModel);
-                case ViewType.EditUser:
-                    EditUserViewModel editUserViewModel = (EditUserViewModel)_viewModelFactory.CreateViewModel(viewType);
-                    editUserViewModel.AllUsers = tableList as ObservableCollectionImproved<UserModel>;
-                    return new EditUserView(editUserViewModel);
-                default: throw new ArgumentException("ViewType не имеет данной ViewModel.", nameof(viewType));
+                case ViewWindowType.AddDepartment:
+                    if (observableCollectionImproved is not ObservableCollectionImproved<DepartmentModel> observableCollectionDepartment) 
+                        throw new ArgumentException("Observable указан не правильно", nameof(viewWindowType));
+                    return new AddDepartmentView(new AddDepartmentViewModel(departmentService, userService, observableCollectionDepartment));
+                case ViewWindowType.AddOrder:
+                    if (observableCollectionImproved is not ObservableCollectionImproved<OrderModel> observableCollectionOrder) 
+                        throw new ArgumentException("Observable указан не правильно", nameof(viewWindowType));
+                    return new AddOrderView(new AddOrderViewModel(orderService, userService, observableCollectionOrder));
+                case ViewWindowType.AddUser:
+                    if (observableCollectionImproved is not ObservableCollectionImproved<UserModel> observableCollectionUser) 
+                        throw new ArgumentException("Observable указан не правильно", nameof(viewWindowType));
+                    return new AddUserView(new AddUserViewModel(userService, departmentService, observableCollectionUser));
+                default: throw new ArgumentException("ViewType не имеет данной ViewModel.", nameof(viewWindowType));
             }
         }
 
-        public Window CreateView(ViewType viewType)
+        public Window CreateViewEdit<Observable, Model>(ViewWindowType viewWindowType, Observable observableCollectionImproved, Model model) where Observable : class where Model : class
         {
-            return viewType switch
-            {
-                ViewType.ViewDepartment => new ViewDepartmentView(_viewModelFactory.CreateViewModel(viewType)),
-                ViewType.ViewOrder => new ViewOrderView(_viewModelFactory.CreateViewModel(viewType)),
-                ViewType.ViewUser => new ViewUserView(_viewModelFactory.CreateViewModel(viewType)),
-                _ => throw new ArgumentException("ViewType не имеет данной ViewModel.", nameof(viewType)),
-            };
+            return new Window();
+        }
+
+        public Window CreateViewView<Model>(ViewWindowType viewWindowType, Model model) where Model : class
+        {
+            return new Window();
         }
     }
 }

@@ -20,8 +20,14 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
     {
         #region Конструктор
 
-        public AddDepartmentViewModel(IUserService userService, IDepartmentService departmentService)
+        public AddDepartmentViewModel(IDepartmentService departmentService, IUserService userService, ObservableCollectionImproved<DepartmentModel> observableDepartment)
         {
+            #region Получение Observable для обновления таблицы
+
+            _observableDepartment = observableDepartment;
+
+            #endregion
+
             #region Получение сервисов для взаимодействия с БД
 
             _userService = userService;
@@ -68,7 +74,7 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
 
         #region Взаимодействоие с VM
 
-        public ObservableCollectionImproved<DepartmentModel>? AllDepartments;
+        private readonly ObservableCollectionImproved<DepartmentModel> _observableDepartment;
 
         #endregion
 
@@ -108,8 +114,10 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
                 DepartmentModel departmentModel = UserModel == null ? 
                     await _departmentService.Create(new DepartmentModel { Name = Name }) : 
                     await _departmentService.Create(new DepartmentModel { Name = Name, UserId = UserModel.Id });
- 
-                AllDepartments?.Add(departmentModel);
+
+                departmentModel.UserModel = UserModel;
+
+                _observableDepartment?.Add(departmentModel);
                 CloseWindow();
             }
         }

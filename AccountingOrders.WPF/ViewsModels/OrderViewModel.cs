@@ -40,13 +40,13 @@ namespace AccountingOrders.WPF.ViewsModels
 
         #region Команды
         public ICommand AddCommand { get; }
-        public void AddOrder() => _viewFactory.CreateView(ViewType.AddOrder, _allOrders).Show();
+        public void AddOrder() => _viewFactory.CreateViewAdd(ViewWindowType.AddOrder, _allOrders).Show();
 
         public ICommand ViewCommand { get; }
-        public void ViewOrder() => _viewFactory.CreateView(ViewType.ViewOrder).Show();
+        public void ViewOrder() { }//=> _viewFactory.CreateView(ViewType.ViewOrder).Show();
 
         public ICommand EditCommand { get; }
-        public void EditOrder() => _viewFactory.CreateView(ViewType.EditOrder, _allOrders).Show();
+        public void EditOrder() { }//=> _viewFactory.CreateView(ViewType.EditOrder, _allOrders).Show();
         #endregion
     }
 }

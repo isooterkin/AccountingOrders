@@ -1,46 +1,72 @@
 ﻿using AccountingOrders.Domain.Models;
 using AccountingOrders.Domain.Services;
 using AccountingOrders.WPF.Commands.RelayCommand;
-using AccountingOrders.WPF.State.Navigators;
-using AccountingOrders.WPF.Views.Actions;
-using AccountingOrders.WPF.ViewsModels.Actions;
 using AccountingOrders.WPF.ViewsModels.Factories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AccountingOrders.WPF.Tools;
 using System.Linq;
-using System.Threading;
 
 namespace AccountingOrders.WPF.ViewsModels
 {
     public class DepartmentViewModel : ViewModelBase
     {
-        private readonly IAccountingOrdersViewFactory _viewFactory;
-
-        private readonly IDepartmentService _departmentService;
-
-        private readonly ObservableCollectionImproved<DepartmentModel> _allDepartments = new();
-        public IEnumerable<DepartmentModel> AllDepartments => _allDepartments;
+        #region Конструктор
 
         public DepartmentViewModel(IDepartmentService departmentService, IAccountingOrdersViewFactory viewFactory)
         {
+            #region Получение завода для создания окон
+
             _viewFactory = viewFactory;
+
+            #endregion
+
+            #region Получение сервисов для взаимодействия с БД
 
             _departmentService = departmentService;
 
+            #endregion
+
+            #region Получение данных с БД
+
             GetData();
+
+            #endregion
+
+            #region Регистрация команд
 
             AddCommand = new RelayCommand(_ => AddDepartment(), _ => true);
             ViewCommand = new RelayCommand(_ => ViewDepartment(), _ => true);
             EditCommand = new RelayCommand(_ => EditDepartment(), _ => true);
             DeleteCommand = new RelayCommand(_ => DeleteDepartment(), _ => true);
+
+            #endregion
         }
 
-        public void GetData() => _ = GetDataAsync();
-        public async Task GetDataAsync() => _allDepartments.AddRange(await _departmentService.GetAll());
+        #endregion
 
+        #region Завод окон
+
+        private readonly IAccountingOrdersViewFactory _viewFactory;
+
+        #endregion
+
+        #region Взаимодействие с БД
+
+        #region Сервисы
+        private readonly IDepartmentService _departmentService;
+        #endregion
+
+        #region Методы
+        private readonly ObservableCollectionImproved<DepartmentModel> _allDepartments = new();
+        public IEnumerable<DepartmentModel> AllDepartments => _allDepartments;
+        public async Task GetDataAsync() => _allDepartments.AddRange(await _departmentService.GetAll());
+        public void GetData() => _ = GetDataAsync();
         private List<DepartmentModel> GetSelectedItems() => AllDepartments.Where(x => x.IsSelected).ToList();
+        #endregion
+
+        #endregion
 
         #region Команды
 
@@ -56,15 +82,24 @@ namespace AccountingOrders.WPF.ViewsModels
         public ICommand ViewCommand { get; }
         public void ViewDepartment()
         {
-            var selectedItems = GetSelectedItems();
+            List<DepartmentModel> selectedItems = GetSelectedItems();
             foreach (var selectedItem in selectedItems)
                _viewFactory.CreateViewView(ViewWindowType.ViewDepartment, selectedItem).Show();
         }
 
         #endregion
 
+        #region Команда редактирования записи
+
         public ICommand EditCommand { get; }
-        public void EditDepartment() { } //=> _viewFactory.CreateView(ViewType.EditDepartment, _allDepartments).Show();
+        public void EditDepartment()
+        {
+            List<DepartmentModel> selectedItems = GetSelectedItems();
+            foreach (var selectedItem in selectedItems)
+                _viewFactory.CreateViewEdit(ViewWindowType.EditDepartment, _allDepartments, selectedItem).Show();
+        }
+
+        #endregion
 
         #region Команда удаления записи
 

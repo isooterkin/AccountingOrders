@@ -79,6 +79,7 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
         #endregion
 
         #region Переменные
+
         private readonly DepartmentModel _departmentModel = new();
         public string Name
         {
@@ -101,6 +102,7 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
                 OnPropertyChanged(nameof(UserModel));
             }
         }
+
         #endregion
 
         #region Команды

@@ -43,22 +43,30 @@ namespace AccountingOrders.WPF.ViewsModels
         private List<DepartmentModel> GetSelectedItems() => AllDepartments.Where(x => x.IsSelected).ToList();
 
         #region Команды
+
+        #region Команда добавления записи
+
         public ICommand AddCommand { get; }
         public void AddDepartment() => _viewFactory.CreateViewAdd(ViewWindowType.AddDepartment, _allDepartments).Show();
+
+        #endregion
+
+        #region Команда просмотра записи
 
         public ICommand ViewCommand { get; }
         public void ViewDepartment()
         {
             var selectedItems = GetSelectedItems();
             foreach (var selectedItem in selectedItems)
-            {
-                // selectedItem нужно закинуть в окно!
-                // _viewFactory.CreateView(ViewType.ViewDepartment).Show();
-            }
+               _viewFactory.CreateViewView(ViewWindowType.ViewDepartment, selectedItem).Show();
         }
+
+        #endregion
 
         public ICommand EditCommand { get; }
         public void EditDepartment() { } //=> _viewFactory.CreateView(ViewType.EditDepartment, _allDepartments).Show();
+
+        #region Команда удаления записи
 
         public ICommand DeleteCommand { get; }
         public void DeleteDepartment() => _ = DeleteDepartmentAsync();
@@ -72,6 +80,9 @@ namespace AccountingOrders.WPF.ViewsModels
                 await GetDataAsync();
             }
         }
+
+        #endregion
+
         #endregion
     }
 }

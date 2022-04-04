@@ -1,4 +1,5 @@
 ﻿using AccountingOrders.Domain.Models;
+using AccountingOrders.Domain.Services;
 using AccountingOrders.WPF.Tools;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
 {
     public class EditOrderViewModel: ViewModelBase
     {
-        public ObservableCollectionImproved<OrderModel>? AllOrders;
+        public EditOrderViewModel(IOrderService orderService, IUserService userService, ObservableCollectionImproved<OrderModel> observableOrder, OrderModel orderModel)
+        {
 
+        }
     }
 }

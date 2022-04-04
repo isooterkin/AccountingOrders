@@ -14,7 +14,6 @@ namespace AccountingOrders.Domain.Models
         public string Name { get; set; }
 
         public int? UserId { get; set; }
-
         [ForeignKey(nameof(UserId))]
         public UserModel? UserModel { get; set; }
     }

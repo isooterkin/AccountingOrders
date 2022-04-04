@@ -2,16 +2,8 @@
 using AccountingOrders.Domain.Services;
 using AccountingOrders.WPF.Commands.RelayCommand;
 using AccountingOrders.WPF.Tools;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace AccountingOrders.WPF.ViewsModels.Actions

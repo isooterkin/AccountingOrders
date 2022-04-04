@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AccountingOrders.WPF"
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
-        Title="Добавить подразделение" Height="400" Width="300">
+        Title="Добавить подразделение" Height="500" Width="300">
     <Border Style="{StaticResource WindowBorderStyle}">
         <Grid>
             <Grid.RowDefinitions>

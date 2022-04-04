@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AccountingOrders.WPF.Views.Actions" xmlns:controls="clr-namespace:AccountingOrders.WPF.Controls"
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
-        Title="Редактировать заказ" Height="400" Width="300">
+        Title="Редактировать заказ" Height="500" Width="300">
     <Border Style="{StaticResource WindowBorderStyle}">
         <Grid>
             <Grid.RowDefinitions>

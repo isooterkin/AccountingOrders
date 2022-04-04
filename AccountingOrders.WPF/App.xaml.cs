@@ -1,4 +1,6 @@
-﻿using AccountingOrders.WPF.HostBuilders;
+﻿using AccountingOrders.EntityFramework;
+using AccountingOrders.WPF.HostBuilders;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
@@ -25,6 +27,11 @@ namespace AccountingOrders.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
+
+            AccountingOrdersDbContextFactory contextFactory = _host.Services.GetRequiredService<AccountingOrdersDbContextFactory>();
+
+            using AccountingOrdersDbContext context = contextFactory.CreateDbContext();
+            context.Database.Migrate();
 
             Window window = _host.Services.GetRequiredService<MainWindow>();
 

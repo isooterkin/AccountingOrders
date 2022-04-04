@@ -9,6 +9,7 @@ namespace AccountingOrders.Domain.Models
     public class OrderModel: ObjectWithId
     {
         [Required(ErrorMessage = "Вы должны ввести номер")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Номер должен содержать только цифры")]
         public int Number { get; set; }
 
         [Required(ErrorMessage = "Вы должны ввести название")]

@@ -73,7 +73,7 @@
         </Grid>
         <!-- -->
 
-        <Border CornerRadius="20,0,20,20" 
+        <Border CornerRadius="20" 
                 Grid.Row="1"
                 Background="{StaticResource BrushTable}"
                 Margin="20,0,20,20">

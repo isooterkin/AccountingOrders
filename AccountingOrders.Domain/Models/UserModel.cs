@@ -30,7 +30,6 @@ namespace AccountingOrders.Domain.Models
         public GenderType Gender { get; set; }
 
         public int? DepartmentId { get; set; }
-
         [ForeignKey(nameof(DepartmentId))]
         public DepartmentModel? DepartmentModel { get; set; }
     }

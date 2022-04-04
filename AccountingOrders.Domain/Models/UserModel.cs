@@ -32,5 +32,8 @@ namespace AccountingOrders.Domain.Models
         public int? DepartmentId { get; set; }
         [ForeignKey(nameof(DepartmentId))]
         public DepartmentModel? DepartmentModel { get; set; }
+
+        [NotMapped]
+        public string GetFIO => $@"{Surname} {Name[0]}. {Patronymic?[0]}.";
     }
 }

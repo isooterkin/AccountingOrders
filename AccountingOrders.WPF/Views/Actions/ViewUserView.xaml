@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AccountingOrders.WPF.Views.Actions" xmlns:controls="clr-namespace:AccountingOrders.WPF.Controls"
+        xmlns:local="clr-namespace:AccountingOrders.WPF.Views.Actions" xmlns:controls="clr-namespace:AccountingOrders.WPF.Controls" xmlns:actions="clr-namespace:AccountingOrders.WPF.ViewsModels.Actions" d:DataContext="{d:DesignInstance Type=actions:ViewUserViewModel}"
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
         Title="Просмотреть сотрудника" Height="500" Width="300">
@@ -22,9 +22,79 @@
             <!--  -->
 
             <!-- Контент -->
-            <Grid Grid.Row="1">
-
+            <Grid Grid.Row="1"
+                  Margin="20"
+                  VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" 
+                           Text="Фамилия"
+                           Foreground="White"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="1"
+                           Text="{Binding Surname}"
+                           Foreground="White"
+                           Background="#2c3034"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="2"
+                           Text="Имя"
+                           Foreground="White"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="3"
+                           Text="{Binding Name}"
+                           Foreground="White"
+                           Background="#2c3034"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="4"
+                           Text="Отчество"
+                           Foreground="White"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="5"
+                           Text="{Binding Patronymic}"
+                           Foreground="White"
+                           Background="#2c3034"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="6"
+                           Text="Дата рождения"
+                           Foreground="White"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="7"
+                           Text="{Binding DateOfBirth}"
+                           Foreground="White"
+                           Background="#2c3034"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="8"
+                           Text="Пол"
+                           Foreground="White"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="9"
+                           Text="{Binding GenderType}"
+                           Foreground="White"
+                           Background="#2c3034"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="10"
+                           Text="Отдел"
+                           Foreground="White"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="11"
+                           Text="{Binding Department}"
+                           Foreground="White"
+                           Background="#2c3034"
+                           Margin="0,5"/>
             </Grid>
+            <!-- Контент -->
         </Grid>
     </Border>
 </Window>

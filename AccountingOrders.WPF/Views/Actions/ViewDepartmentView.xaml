@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AccountingOrders.WPF.Views.Actions" xmlns:controls="clr-namespace:AccountingOrders.WPF.Controls"
+        xmlns:local="clr-namespace:AccountingOrders.WPF.Views.Actions" xmlns:controls="clr-namespace:AccountingOrders.WPF.Controls" xmlns:actions="clr-namespace:AccountingOrders.WPF.ViewsModels.Actions" d:DataContext="{d:DesignInstance Type=actions:ViewDepartmentViewModel}"
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
         Title="Просмотреть подразделение" Height="500" Width="300">
@@ -22,48 +22,33 @@
             <!--  -->
 
             <!-- Контент -->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1"
+                  Margin="20"
+                  VerticalAlignment="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0"
-                      Margin="20"
-                      VerticalAlignment="Center">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" 
-                               Text="Название"
-                               Foreground="White"
-                               Margin="0,5"/>
-                    <TextBlock Grid.Row="1"
-                               Text="{Binding Name}"
-                               Margin="0,5"/>
-                    <TextBlock Grid.Row="2"
-                               Text="Руководитель"
-                               Foreground="White"
-                               Margin="0,5"/>
-                    <TextBlock Grid.Row="3"
-                               Text="{Binding UserModel.Name}"
-                               Foreground="White"
-                               Margin="0,5"/>
-                </Grid>
-
-                <Button Grid.Row="1"
-                        Content="Добавить"
-                        Style="{StaticResource ButtonStyle}"
-                        Width="auto"
-                        Height="50"
-                        Margin="20"
-                        Command="{Binding AddCommand}"
-                        CommandParameter=""/>
+                <TextBlock Grid.Row="0" 
+                           Text="Название"
+                           Foreground="White"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="1"
+                           Text="{Binding Name}"
+                           Foreground="White"
+                           Background="#2c3034"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="2"
+                           Text="Руководитель"
+                           Foreground="White"
+                           Margin="0,5"/>
+                <TextBlock Grid.Row="3"
+                           Text="{Binding FIO}"
+                           Foreground="White"
+                           Background="#2c3034"
+                           Margin="0,5"/>
             </Grid>
             <!-- Контент -->
         </Grid>

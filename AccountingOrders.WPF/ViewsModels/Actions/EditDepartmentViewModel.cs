@@ -5,7 +5,6 @@ using AccountingOrders.WPF.Tools;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Linq;
 
 namespace AccountingOrders.WPF.ViewsModels.Actions
 {
@@ -59,7 +58,7 @@ namespace AccountingOrders.WPF.ViewsModels.Actions
         #region Методы
         private readonly ObservableCollectionImproved<UserModel> _allUsers = new();
         public IEnumerable<UserModel> AllUsers => _allUsers;
-        public async Task GetDataAsync() => _allUsers.AddRange((await _userService.GetAll()).Where(u => u.DepartmentId == _departmentModel.Id));
+        public async Task GetDataAsync() => _allUsers.AddRange(await _userService.GetAll());
         public void GetData() => _ = GetDataAsync();
         #endregion
 
